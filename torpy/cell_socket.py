@@ -54,9 +54,8 @@ class TorCellSocket:
         if self._socket:
             raise Exception('Already connected')
 
-        self._socket = ssl.wrap_socket(
-            socket.socket(socket.AF_INET, socket.SOCK_STREAM), ssl_version=ssl.PROTOCOL_TLSv1_2
-        )
+        context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        self._socket = context.wrap_socket(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
         logger.debug('Connecting socket to %s relay...', self._router)
         try:
             self._socket.settimeout(15.0)

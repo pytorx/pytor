@@ -43,7 +43,7 @@ class TorHttpAdapter(HTTPAdapter):
         self._pool_block = block
 
         self.poolmanager = MyPoolManager(
-            self._tor_info, num_pools=connections, maxsize=maxsize, block=block, strict=True, **pool_kwargs
+            self._tor_info, num_pools=connections, maxsize=maxsize, block=block, **pool_kwargs
         )
 
 
@@ -85,7 +85,6 @@ class MyHTTPConnectionPool(HTTPConnectionPool):
             host=self.host,
             port=self.port,
             timeout=self.timeout.connect_timeout,
-            strict=self.strict,
             **self.conn_kw,
         )
 
@@ -104,7 +103,6 @@ class MyHTTPSConnectionPool(HTTPSConnectionPool):
             host=self.host,
             port=self.port,
             timeout=self.timeout.connect_timeout,
-            strict=self.strict,
             **self.conn_kw,
         )
         logger.debug('[MyHTTPSConnectionPool] preparing...')
